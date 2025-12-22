@@ -1,0 +1,70 @@
+{
+  "learnings": [
+    {
+      "id": "L001",
+      "date": "2025-12-13",
+      "category": ["workflow", "configuration"],
+      "trigger": "Global copilot-instructions.md had hardcoded /Users/username/ paths",
+      "pattern": "Using absolute paths with usernames in shareable configuration files",
+      "solution": "Use $HOME environment variable with explicit resolution step",
+      "example": {
+        "bad": "/Users/username/.copilot/skills/SKILLS-INDEX.md",
+        "good": "$HOME/.copilot/skills/SKILLS-INDEX.md (with 'echo $HOME' first)"
+      },
+      "confidence": 1.0,
+      "usageCount": 1,
+      "reflectionRef": "R001",
+      "keywords": ["paths", "hardcoded", "configuration", "portable", "HOME", "environment", "shareable"]
+    },
+    {
+      "id": "L002",
+      "date": "2025-12-13",
+      "category": ["workflow", "bash", "configuration"],
+      "trigger": "Copilot CLI didn't reliably expand ~ tilde in paths",
+      "pattern": "Using ~ tilde for home directory in non-shell contexts",
+      "solution": "Use $HOME environment variable which is more reliably expanded",
+      "example": {
+        "bad": "~/.copilot/skills/ (may not expand in all contexts)",
+        "good": "$HOME/.copilot/skills/ (explicit variable, always works)"
+      },
+      "confidence": 1.0,
+      "usageCount": 1,
+      "reflectionRef": "R001",
+      "keywords": ["tilde", "HOME", "expansion", "bash", "paths", "environment", "variable"]
+    }
+  ],
+  "rules": [
+    {
+      "id": "RULE001",
+      "priority": "high",
+      "category": "configuration",
+      "rule": "Never hardcode user paths in shareable configuration files",
+      "reason": "Breaks portability, exposes usernames, causes path resolution failures for other users",
+      "alternative": "Use $HOME with explicit resolution step: 'echo $HOME' then '$HOME/.copilot/...'",
+      "learningSources": ["L001", "L002"]
+    }
+  ],
+  "stats": {
+    "totalSessions": 1,
+    "totalLearnings": 2,
+    "totalRules": 1,
+    "autoReflections": 0,
+    "totalErrors": 0,
+    "lastUpdated": "2025-12-13T11:30:00Z",
+    "lastAutoReflection": null,
+    "triggerCounts": {}
+  },
+  "searchIndex": {
+    "paths": ["L001", "L002"],
+    "hardcoded": ["L001"],
+    "configuration": ["L001", "L002"],
+    "portable": ["L001"],
+    "HOME": ["L001", "L002"],
+    "environment": ["L001", "L002"],
+    "shareable": ["L001"],
+    "tilde": ["L002"],
+    "expansion": ["L002"],
+    "bash": ["L002"],
+    "variable": ["L002"]
+  }
+}

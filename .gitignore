@@ -1,0 +1,9 @@
+
+# Log files
+logs/
+node_modules
+.env
+venv
+.DS_Store
+# Ignore macOS metadata
+.DS_Store
